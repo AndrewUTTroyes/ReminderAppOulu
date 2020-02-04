@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_view_item.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReminderAdapter internal constructor(context: Context) : RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>() {
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -26,8 +28,13 @@ class ReminderAdapter internal constructor(context: Context) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
         val current = reminders[position]
         holder.itemMessageView.text = current.message
-        holder.itemTriggerView.text = current.time.toString()
+        if(current.time != null){
+            val sdf = SimpleDateFormat("HH:mm dd.MM.yyyy")
+            sdf.timeZone = TimeZone.getDefault()
+            holder.itemTriggerView.text = sdf.format(current.time)
+        }
     }
+
 
     internal fun setReminders(reminders: List<ReminderEntity>) {
         this.reminders = reminders

@@ -20,18 +20,6 @@ abstract class ReminderDB : RoomDatabase(){
 
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
-            INSTANCE?.let { database ->
-                scope.launch {
-                    var reminderDao = database.ReminderDao()
-                    reminderDao.deleteAll()
-
-                    // Add sample words.
-                    var reminder = ReminderEntity(1,12,"Oulu","UNI")
-                    reminderDao.insertAll(reminder)
-                    reminder = ReminderEntity(2,20,"Oulu","PSOAS")
-                    reminderDao.insertAll(reminder)
-                }
-            }
         }
     }
 
