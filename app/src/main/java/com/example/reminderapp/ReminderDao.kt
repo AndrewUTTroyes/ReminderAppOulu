@@ -5,8 +5,8 @@ import androidx.room.*
 
 @Dao
 interface ReminderDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertAll(vararg reminder: ReminderEntity)
+    @Transaction @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertAll(reminder: ReminderEntity): Long
 
     @Query("SELECT * FROM reminders")
     fun getAll(): LiveData<List<ReminderEntity>>
@@ -17,8 +17,8 @@ interface ReminderDao {
     @Query("DELETE FROM reminders")
     suspend fun deleteAll()
 
-    @Delete
-    suspend fun delete(reminder: ReminderEntity)
+    @Query("DELETE FROM reminders WHERE uid = :id")
+    suspend fun delete(id: Int?)
 
     @Update
     suspend fun updateTodo(vararg reminders: ReminderEntity)

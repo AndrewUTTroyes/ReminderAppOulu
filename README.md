@@ -1,0 +1,1 @@
+APK located on folder ./app/release

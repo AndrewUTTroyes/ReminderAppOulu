@@ -8,7 +8,7 @@ class ReminderRepository(private val reminderDao: ReminderDao) {
     // Observed LiveData will notify the observer when the data has changed.
     val allReminder: LiveData<List<ReminderEntity>> = reminderDao.getAll()
 
-    suspend fun insert(reminder: ReminderEntity) {
-        reminderDao.insertAll(reminder)
+    suspend fun insert(reminder: ReminderEntity): Int {
+        return reminderDao.insertAll(reminder).toInt()
     }
 }

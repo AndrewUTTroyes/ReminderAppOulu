@@ -33,6 +33,9 @@ class ReminderAdapter internal constructor(context: Context) : RecyclerView.Adap
             sdf.timeZone = TimeZone.getDefault()
             holder.itemTriggerView.text = sdf.format(current.time)
         }
+        else if(current.location != null){
+            holder.itemTriggerView.text = current.location
+        }
     }
 
 
